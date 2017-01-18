@@ -1,3 +1,10 @@
+# JetBrains
+.idea
+.DS_Store
+
+# App env
+dist
+
 # Logs
 logs
 *.log

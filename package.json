@@ -1,0 +1,177 @@
+{
+  "name": "universal-express-react-redux-boilerplate",
+  "version": "1.0.0",
+  "description": "Isomorphic boilerplate",
+  "main": "dist/server.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "flow": "flow",
+    "dev": "better-npm-run dev",
+    "dev:ssr": "better-npm-run dev:ssr",
+    "dev:ssr-only": "better-npm-run dev:ssr-only",
+    "build": "better-npm-run build",
+    "build:client": "better-npm-run build:client",
+    "build:server": "better-npm-run build:server",
+    "test": "better-npm-run test",
+    "prod": "better-npm-run prod",
+    "clean": "rimraf dist",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "start": "better-npm-run dev"
+  },
+  "betterScripts": {
+    "dev": {
+      "command": "gulp dev-front",
+      "env": {
+        "NODE_ENV": "development",
+        "DEBUG": "app:*"
+      }
+    },
+    "dev:ssr": {
+      "command": "gulp dev-ssr",
+      "env": {
+        "NODE_ENV": "development",
+        "DEBUG": "app:*"
+      }
+    },
+    "dev:ssr-only": {
+      "command": "gulp dev-ssr",
+      "env": {
+        "SSR_ONLY": "enabled",
+        "NODE_ENV": "development",
+        "DEBUG": "app:*"
+      }
+    },
+    "build": {
+      "command": "npm run clean && gulp build",
+      "env": {
+        "NODE_ENV": "production",
+        "DEBUG": "app:*"
+      }
+    },
+    "build:client": {
+      "command": "npm run clean && gulp frontend-build",
+      "env": {
+        "NODE_ENV": "production",
+        "DEBUG": "app:*"
+      }
+    },
+    "build:server": {
+      "command": "npm run clean && gulp backend-build",
+      "env": {
+        "NODE_ENV": "production",
+        "DEBUG": "app:*"
+      }
+    },
+    "test": {
+      "command": "babel-node ./node_modules/karma/bin/karma start build/karma.conf",
+      "env": {
+        "NODE_ENV": "test",
+        "DEBUG": "app:*"
+      }
+    },
+    "prod": {
+      "command": "node dist/server",
+      "env": {
+        "NODE_ENV": "production",
+        "DEBUG": "app:*"
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nclsndr/express-react-boilerplate.git"
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "isomorphic"
+  ],
+  "author": "nclsndr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nclsndr/express-react-boilerplate/issues"
+  },
+  "homepage": "https://github.com/nclsndr/express-react-boilerplate#readme",
+  "dependencies": {
+    "axios": "^0.15.3",
+    "classnames": "^2.2.5",
+    "cookie-parser": "^1.4.3",
+    "debug": "^2.6.0",
+    "express": "^4.14.0",
+    "fs-extra": "^2.0.0",
+    "history": "^4.5.1",
+    "immutable": "^3.8.1",
+    "lodash": "^4.17.4",
+    "path": "^0.12.7",
+    "pug": "^2.0.0-beta6",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.2",
+    "react-router": "^3.0.1",
+    "react-router-redux": "^4.0.7",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0",
+    "webpack-node-externals": "^1.5.4",
+    "window-or-global": "^1.0.1",
+    "yargs": "^6.6.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.21.0",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-react-transform": "^2.0.2",
+    "babel-plugin-syntax-flow": "^6.18.0",
+    "babel-plugin-transform-react-constant-elements": "^6.9.1",
+    "babel-plugin-transform-react-remove-prop-types": "^0.2.11",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-register": "^6.18.0",
+    "babel-runtime": "^6.20.0",
+    "better-npm-run": "0.0.14",
+    "css-loader": "^0.26.1",
+    "cssnano": "^3.10.0",
+    "eslint": "^3.13.1",
+    "eslint-config-airbnb": "^14.0.0",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-config-standard-react": "^4.2.0",
+    "eslint-loader": "^1.6.1",
+    "eslint-plugin-babel": "^4.0.0",
+    "eslint-plugin-flow-vars": "^0.5.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^3.0.2",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-react": "^6.9.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "flow": "^0.2.3",
+    "flow-bin": "^0.37.4",
+    "fontgen-loader": "^0.2.1",
+    "gulp": "^3.9.1",
+    "imports-loader": "^0.7.0",
+    "isparta-loader": "^2.0.0",
+    "json": "^9.0.4",
+    "json-loader": "^0.5.4",
+    "node-sass": "^4.3.0",
+    "nodemon": "^1.11.0",
+    "postcss-loader": "^1.2.2",
+    "pug-loader": "^2.3.0",
+    "react-addons-test-utils": "^15.4.2",
+    "react-transform-catch-errors": "^1.0.2",
+    "react-transform-hmr": "^1.0.4",
+    "redbox-react": "^1.3.3",
+    "sass-loader": "^4.1.1",
+    "source-map-support": "^0.4.10",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.14.0",
+    "webpack-dev-middleware": "^1.9.0",
+    "webpack-hot-middleware": "^2.15.0"
+  }
+}

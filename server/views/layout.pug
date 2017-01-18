@@ -1,0 +1,19 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='icon', type='image/png', href='/static/favicon/favicon-32x32.png?v=1')
+        title= headTitle
+        if (env === 'production' && !ssrOnly)
+            link(rel='stylesheet', type='text/css', href='/static/app.css')
+    body(class='app')
+        div#app_root !{htmlData}
+        script window.__PRELOADED_STATE__ = !{initialState}
+        if !ssrOnly
+            if (env === 'production')
+                script(src='/static/vendor.js')
+                script(src='/static/app.js')
+            else
+                script(src='/vendor.js')
+                script(src='/app.js')

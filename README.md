@@ -1,2 +1,10 @@
-# express-react-boilerplate
-Simple express app using react as view engine
+# Universal Express React Redux Boilerplate
+
+Personal boilerplate to start building powerful apps based on ExpressJS / ReactJS and Redux
+
+## TO DO
+
+- Conditionnal Server compiler
+- Flow
+- Immutable
+
