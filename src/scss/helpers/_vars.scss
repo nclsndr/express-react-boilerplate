@@ -1,0 +1,54 @@
+/* ------------------------------------------
+ * Fonts
+ *------------------------------------------- */
+$defaultHTMLFontSizeInt: 14;
+$defaultHTMLFontSize: #{$defaultHTMLFontSizeInt}px;
+
+/* ------------------------------------------
+ * Transitions
+ *------------------------------------------- */
+$transition_fast: 100ms;
+$transition_standard: 300ms;
+$transition_slow: 500ms;
+$transition_x_slow: 800ms;
+$transition_page: 1200ms;
+
+/* ------------------------------------------
+ * Colors
+ *------------------------------------------- */
+$scheme: (
+  gray: (
+    base : #4D4D4D,
+    1: #262626,
+    2: #4D4D4D,
+    3: #808080,
+    4: #B3B3B3,
+    5: #D9D9D9,
+    6: #EBEBEB
+  ),
+  white: (
+    base: #FFF
+  ),
+  main: (
+    base: #4D4D4D,
+    white: #FFF,
+    black: #000
+  )
+);
+/* ------------------------------------------
+ * Screen responsive breakpoints
+ *------------------------------------------- */
+$media-queries: (
+    phone : (i : 0px, o : 480px),
+    tablet : (i : 481px, o : 840px),
+    s-desktop : (i : 841px, o : 1280px),
+    l-desktop : (i : 1281px, o : 1920px),
+    xl-desktop : (i : 1921, o : 4000px)
+);
+
+/* ------------------------------------------
+ * Grid settings
+ *------------------------------------------- */
+$columnsCount: 12;
+$wrapperWidth: 1200px;
+$gutterWidth: 20px;

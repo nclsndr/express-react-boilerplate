@@ -1,0 +1,28 @@
+/* ------------------------------------------
+ * Functions helper
+ *------------------------------------------- */
+@import "vars";
+
+@function font-size($px) {
+  $res: $px/$defaultHTMLFontSize;
+  @return $res + rem;
+}
+
+// Pick color from scheme
+@function color($selector, $value:'base', $opacity:1){
+  @if($opacity == 1){
+    @return map-get(map-get($scheme,$selector), $value);
+  }
+  @else {
+    $color: map-get(map-get($scheme,$selector), $value);
+    $red: red($color);
+    $blue: blue($color);
+    $green: green($color);
+    @return rgba($red, $green, $blue, $opacity);
+  }
+}
+
+// Set media query from
+@function m-query($type, $io : 'i') {
+  @return map-get(map-get($media-queries, $type), $io);
+}

@@ -1,0 +1,125 @@
+/* ------------------------------------------
+ * Mobile first simple grid
+ *------------------------------------------- */
+@import "vars";
+@import "functions";
+@import "mixins";
+
+.grid {
+  box-sizing: border-box;
+  width: 100%;
+  &::before, &::after {
+    content: ' ';
+    display: table;
+    clear: both;
+  }
+  .row {
+    width: 100%;
+    box-sizing: border-box;
+    &::before, &::after {
+      content: ' ';
+      display: table;
+      clear: both;
+    }
+  }
+  [class*='c-'] {
+    display: block;
+    float: left;
+    box-sizing: border-box;
+    .g-mod {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+  // Wrapped mode
+  @include m(wrap) {
+    max-width: $wrapperWidth;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  // Include padding
+  @include m(pad) {
+    [class*='c-'] {
+      padding-left: $gutterWidth / 2;
+      padding-right: $gutterWidth / 2;
+    }
+  }
+}
+
+// Grid for: Mobile (general)
+@for $i from 1 through $columnsCount {
+  .c-s-#{$i} {
+    width: percentage($i / $columnsCount);
+  }
+  .c-o-s-#{$i} {
+    margin-left: percentage($i / $columnsCount);
+  }
+}
+.grid .g-s-display {
+  display: block;
+}
+// Grid for: Medium
+@include tablet {
+  @for $i from 1 through $columnsCount {
+    .c-m-#{$i} {
+      width: percentage($i / $columnsCount);
+    }
+    .c-o-m-#{$i} {
+      margin-left: percentage($i / $columnsCount);
+    }
+  }
+  .grid .g-m-display {
+    display: block;
+  }
+}
+// Grid for: Large
+@include desktop {
+  @for $i from 1 through $columnsCount {
+    .c-l-#{$i} {
+      width: percentage($i / $columnsCount);
+    }
+    .c-o-l-#{$i} {
+      margin-left: percentage($i / $columnsCount);
+    }
+  }
+  .grid .g-l-display {
+    display: block;
+  }
+}
+// Grid for: Extra large
+@include l-desktop {
+  @for $i from 1 through $columnsCount {
+    .c-xl-#{$i} {
+      width: percentage($i / $columnsCount);
+    }
+    .c-o-xl-#{$i} {
+      margin-left: percentage($i / $columnsCount);
+    }
+  }
+  .grid .g-xl-display {
+    display: block;
+  }
+}
+
+// Specific to target sizes
+@include only-phone {
+  .grid .g-s-hide {
+    display: none;
+  }
+}
+@include only-tablet {
+  .grid .g-m-hide {
+    display: none;
+  }
+}
+@include only-desktop {
+  .grid .g-l-hide {
+    display: none;
+  }
+}
+@include only-l-desktop {
+  .grid .g-xl-hide {
+    display: none;
+  }
+}

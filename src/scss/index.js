@@ -1,8 +1,7 @@
 /* ------------------------------------------
  * Load App level styles
  *------------------------------------------- */
-
-import './vendors/_normalize.scss'
+import './helpers/_reset.scss'
+import './helpers/_grid.scss'
+import './globals/_fonts.scss'
 import './app.scss'
-
-export default {}

@@ -1,0 +1,91 @@
+/* ------------------------------------------
+ * Mixins helper
+ *------------------------------------------- */
+@import "vars";
+@import "functions";
+
+// BEM Elements
+@mixin e($element) {
+  &__#{$element} {
+    @content;
+  }
+}
+@mixin m($modifier) {
+  &--#{$modifier} {
+    @content;
+  }
+}
+
+// keyframes mixin
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin customMediaQuery($size) {
+  @media screen and (max-width: #{$size}) {
+    @content
+  }
+}
+// Non Mobile first implementation
+@mixin only-phone {
+  @media screen and (min-width: 0) and (max-width: #{m-query(phone, o)}) {
+    @content
+  }
+}
+@mixin only-tablet {
+  @media screen and (min-width: #{m-query(tablet, i)}) and (max-width: #{m-query(tablet, o)}) {
+    @content
+  }
+}
+@mixin only-desktop {
+  @media screen and (min-width: #{m-query(s-desktop, i)}) and (max-width: #{m-query(s-desktop, o)}) {
+    @content
+  }
+}
+@mixin only-l-desktop {
+  @media screen and (min-width: #{m-query(l-desktop, i)}) and (max-width: #{m-query(xl-desktop, o)}) {
+    @content
+  }
+}
+@mixin only-all-desktop {
+  @media screen and (min-width: #{m-query(s-desktop, i)}) and (max-width: #{m-query(xl-desktop, o)}) {
+    @content
+  }
+}
+// Mobile First implementation
+@mixin phone {
+  @media screen and (min-width: #{m-query(phone, o)}) {
+    @content
+  }
+}
+@mixin tablet {
+  @media screen and (min-width: #{m-query(tablet, o)}) {
+    @content
+  }
+}
+@mixin desktop {
+  @media screen and (min-width: #{m-query(s-desktop, o)}) {
+    @content
+  }
+}
+@mixin l-desktop {
+  @media screen and (min-width: #{m-query(xl-desktop, o)}) {
+    @content
+  }
+}
+@mixin all-desktop {
+  @media screen and (min-width: #{m-query(xl-desktop, o)}) {
+    @content
+  }
+}

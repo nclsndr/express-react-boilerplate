@@ -9,7 +9,9 @@ import Helmet from 'react-helmet'
 // Import constants
 // Import actions
 // Import components
+import GridDemo from '../../components/gridDemo'
 // Import style
+import './style.scss'
 
 const propTypes = {
   any: PropTypes.string
@@ -26,14 +28,40 @@ class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      title: 'home'
+      title: 'Home'
     }
   }
   render() {
     return (
-      <div>
+      <div className="home_page">
         <Helmet title={this.state.title} />
-        <h1>{this.state.title}</h1>
+        <div className="grid grid--wrap">
+          <div className="row">
+            <div className="c-s-12">
+              <h1 className="h1">Welcome onboard</h1>
+            </div>
+          </div>
+          <div className="row">
+            <div className="c-s-12 c-l-6">
+              <h2>Usage</h2>
+            </div>
+            <div className="c-s-12 c-l-6">
+              <h2>Dependencies</h2>
+              <ul>
+                <li>Express 4</li>
+                <li>React</li>
+                <li>React router</li>
+                <li>Redux</li>
+                <li>Helmet</li>
+                <li>Immutable</li>
+                <li>Flow</li>
+                <li>SCSS</li>
+                <li>Custom mobile first SCSS grid</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <GridDemo />
       </div>
     )
   }

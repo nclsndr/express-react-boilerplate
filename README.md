@@ -4,7 +4,7 @@ Personal boilerplate to start building powerful apps based on ExpressJS / ReactJ
 
 ## TO DO
 
-- SCSS
+- Test SVG icon font
 - Axios
 - Flow
 - Immutable
