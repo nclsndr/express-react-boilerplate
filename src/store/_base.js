@@ -7,7 +7,7 @@ import thunkMiddleware from 'redux-thunk'
 import { routerMiddleware } from 'react-router-redux'
 import rootReducer from '../reducers'
 
-// Import custom middlewares above
+// Import custom middlewares above this line
 
 /**
  * Apply custom middlewares based on stack before create store

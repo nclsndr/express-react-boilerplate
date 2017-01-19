@@ -4,7 +4,8 @@ Personal boilerplate to start building powerful apps based on ExpressJS / ReactJ
 
 ## TO DO
 
-- Conditionnal Server compiler
+- SCSS
+- Axios
 - Flow
 - Immutable
 

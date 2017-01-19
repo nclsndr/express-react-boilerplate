@@ -10,12 +10,11 @@ import root from 'window-or-global'
 import { ROUTER } from './reducers/_names'
 
 import STACK from './stacks'
+import routes from './routes'
+import configureStore from './store'
 
 // Load global styles
 import './scss'
-
-import routes from './routes'
-import configureStore from './store'
 
 // Used to inject debug in global scope (window)
 if (STACK.isDev && process.env.BROWSER) {
@@ -24,8 +23,11 @@ if (STACK.isDev && process.env.BROWSER) {
   }
 }
 
-// Create the initial store
-const store = configureStore(browserHistory, {})
+// Catch pre-rendered state from server
+// eslint-disable-next-line
+const initialState = root.__PRELOADED_STATE__ ? root.__PRELOADED_STATE__ : {}
+// Build the initial store
+const store = configureStore(browserHistory, initialState)
 
 // Bind HMR on dev
 if (module.hot) {
