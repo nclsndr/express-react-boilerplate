@@ -5,8 +5,22 @@
 header {
   width: 100%;
   background: #4d4d4d;
+  position: relative;
   p {
     padding: 1rem;
     color: #FFF;
+  }
+  ul {
+    position: absolute;
+    top: 0;
+    right: 0;
+    list-style: none;
+    li {
+      display: inline-block;
+      padding: 1rem;
+    }
+    a {
+      color: #FFF;
+    }
   }
 }

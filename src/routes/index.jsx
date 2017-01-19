@@ -6,11 +6,13 @@ import { Route, IndexRoute, IndexRedirect, Redirect } from 'react-router'
 
 import {
   AppLayer,
-  Home
+  Home,
+  Nasa
 } from '../containers'
 
 export default (
   <Route path="/" component={AppLayer}>
     <IndexRoute component={Home} />
+    <Route path="/nasa" component={Nasa} />
   </Route>
 )

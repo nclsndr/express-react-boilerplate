@@ -45,16 +45,18 @@ const config = {
     colors: true
   },
   client_compiler_vendor: [
+    'axios',
+    'classnames',
     'history',
+    'lodash',
     'react',
     'react-dom',
     'react-redux',
     'react-router',
     'react-router-redux',
+    'react-helmet',
     'redux',
-    'redux-thunk',
-    'classnames',
-    'react-helmet'
+    'redux-thunk'
   ],
 
   // ----------------------------------

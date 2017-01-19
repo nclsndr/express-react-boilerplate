@@ -56,7 +56,8 @@ class Home extends Component {
                 <li>Immutable</li>
                 <li>Flow</li>
                 <li>SCSS</li>
-                <li>Custom mobile first SCSS grid</li>
+                <li>Icon font generator <i className="icon i_beer" /></li>
+                <li>Custom SCSS grid (mobile first)</li>
               </ul>
             </div>
           </div>

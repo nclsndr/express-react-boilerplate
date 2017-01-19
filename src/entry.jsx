@@ -21,6 +21,7 @@ if (STACK.isDev && process.env.BROWSER) {
   root.app_debug = {
     any: 'any'
   }
+  root.localStorage.setItem('debug', 'front:')
 }
 
 // Catch pre-rendered state from server

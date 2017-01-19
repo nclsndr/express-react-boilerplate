@@ -4,3 +4,6 @@
 
 export const ROUTER = 'router'
 export const SERVER = 'server'
+
+// Add reducers names here
+export const NASA = 'nasa'
