@@ -11,8 +11,13 @@ const STACKS = {
     isTest: false,
     verbose: false,
     verboseErrors: true,
-    frontUrl: 'http://localhost:3000',
-    apiUrl: 'http://api.nicetomateyou.com',
+    baseUrl: 'http://localhost:3000',
+    APIs: {
+      nasa: {
+        url: 'https://api.nasa.gov',
+        key: 'XzhKSQcMbUmYyjOvrMFawSSsGwR0zH1IS7a8EZXF'
+      }
+    },
     ga: {
       enabled: false,
       id: 'XX-XXXXXX-X',

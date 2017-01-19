@@ -6,10 +6,11 @@ import { RouterContext, Router, match, createMemoryHistory } from 'react-router'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { renderToString } from 'react-dom/server'
+import Helmet from 'react-helmet'
 import _debug from 'debug'
 
 import config from '../../config'
-import layout from '../views/layout.pug'
+import Layout from '../views/layout'
 
 import configureStore from '../../src/store'
 import routes from '../../src/routes'
@@ -63,17 +64,22 @@ export default function requestHandler(req, res, next) {
               <Router history={history} routes={routes} />
             </Provider>
           )
+          // Compile <head> data from the app
+          const headData = Helmet.rewind()
           // Grab the initial state from our Redux store
           const finalState = store.getState()
-          // render through pug tpl
-          const locals = {
-            env: config.env,
-            ssrOnly: __SSR_ONLY__,
-            headTitle: `React universal boilerplate - ${location}`,
-            htmlData: html,
-            initialState: JSON.stringify(finalState)
-          }
-          return res.status(200).send(layout(locals))
+          // render through layout JSX
+          const htmlLayout = renderToString(
+            <Layout
+              env={config.env}
+              ssrOnly={__SSR_ONLY__}
+              head={headData}
+              htmlData={html}
+              initialState={JSON.stringify(finalState)}
+            />
+          )
+          const layoutWithDoctype = `<!DOCTYPE html> ${htmlLayout}`
+          return res.status(200).send(layoutWithDoctype)
         })
         .catch(err => {
           debug('---------------- SSR ON ERROR ----------------')

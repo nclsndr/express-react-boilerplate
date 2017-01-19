@@ -53,7 +53,8 @@ const config = {
     'react-router-redux',
     'redux',
     'redux-thunk',
-    'classnames'
+    'classnames',
+    'react-helmet'
   ],
 
   // ----------------------------------

@@ -4,34 +4,33 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-// Import services
 // Import constants
-// Import actions
+import appData from '../../data'
+import STACK from '../../stacks'
+
 // Import components
-// Import style
+import AppHead from './appHead'
+import NavBar from '../../components/navBar'
 
-const propTypes = {
-  any: PropTypes.string
-}
-const defaultProps = {
-  any: 'anything as string'
-}
+const propTypes = {}
+const defaultProps = {}
 
-const contextTypes = {
-  store: PropTypes.object
-}
+const contextTypes = {}
 const childContextTypes = {
-  anyForChild: PropTypes.string
+  appData: PropTypes.object
 }
 
 class AppLayer extends Component {
-  // static getChildContext() {}
-
+  static getChildContext() { // Broadcast static values into children
+    return {
+      stack: STACK,   // Provide stack spec from src
+      appData         // Provide static data from data file
+    }
+  }
   constructor(props, context) {
     super(props)
     this.ctx = context
   }
-
   // LifeCycle methods if needed
   // componentWillMount() {}
   // componentDidMount() {}
@@ -44,6 +43,10 @@ class AppLayer extends Component {
   render() {
     return (
       <div>
+        <AppHead
+          baseUrl={STACK.baseUrl}
+        />
+        <NavBar />
         {this.props.children}
       </div>
     )

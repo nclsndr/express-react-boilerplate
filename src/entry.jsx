@@ -8,7 +8,6 @@ import { Router, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import root from 'window-or-global'
 import { ROUTER } from './reducers/_names'
-import NavBar from './components/nav-bar'
 
 import STACK from './stacks'
 
