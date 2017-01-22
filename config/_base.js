@@ -26,11 +26,11 @@ const config = {
   server_host: 'localhost',
   server_port: process.env.PORT || 3000,
   server_assets_path: '/static',
-  server_ignored_build_extensions: /\.(css|scss|jpg|png|woff|woff2|ttf|otf)$/,
 
   // ----------------------------------
   // Client Compiler Configuration
   // ----------------------------------
+  client_compiler_assets_file: 'webpack-assets.json',
   client_compiler_css_modules: false,
   client_compiler_devtool: '#eval-source-map',
   client_compiler_debug: false,

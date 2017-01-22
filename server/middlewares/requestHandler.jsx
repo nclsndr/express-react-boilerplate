@@ -2,14 +2,14 @@
  * Catch and eval urls from express
  *------------------------------------------- */
 import React from 'react'
-import { RouterContext, Router, match, createMemoryHistory } from 'react-router'
-import { createStore } from 'redux'
+import { Router, match, createMemoryHistory } from 'react-router'
 import { Provider } from 'react-redux'
 import { renderToString } from 'react-dom/server'
 import Helmet from 'react-helmet'
 import _debug from 'debug'
 
 import config from '../../config'
+import webpackAssets from '../services/webpackAssets'
 import Layout from '../views/layout'
 
 import configureStore from '../../src/store'
@@ -27,7 +27,6 @@ export default function requestHandler(req, res, next) {
     location: req.url
   }, (error, redirectLocation, renderProps) => {
     debug(`path : ${req.url}`)
-
     if (error === null) {
       if (redirectLocation) {
         return res.redirect(302, `${redirectLocation.pathname}${redirectLocation.search}`)
@@ -57,7 +56,7 @@ export default function requestHandler(req, res, next) {
         }).filter(elem => elem instanceof Promise)
 
       // Waiting for all promises resolves
-      Promise.all(promises)
+      return Promise.all(promises)
         .then(onResolve => {
           const html = renderToString(
             <Provider store={store}>
@@ -76,6 +75,7 @@ export default function requestHandler(req, res, next) {
               head={headData}
               htmlData={html}
               initialState={JSON.stringify(finalState)}
+              webpackAssets={webpackAssets}
             />
           )
           const layoutWithDoctype = `<!DOCTYPE html> ${htmlLayout}`
@@ -86,6 +86,10 @@ export default function requestHandler(req, res, next) {
           debug(err)
           return res.status(500).send('Error on SSR')
         })
+    }
+    // If targeted route doesn't match :: send 404
+    if (error === undefined && redirectLocation === undefined && renderProps === undefined) {
+      return res.status(404).send('Not found')
     }
   })
 }

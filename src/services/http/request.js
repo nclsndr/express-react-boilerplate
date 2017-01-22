@@ -18,21 +18,6 @@ export default class RequestFactory {
   }
 
   /**
-   * Format params in order to get a proper string
-   * which look like this : key=value&key=value
-   * @param params (plain object)
-   * @returns {string}
-   */
-  static formatParams(params) {
-    const end = Object
-      .keys(params)
-      .filter(key => params[key] !== null)
-      .map(key => `${key}=${encodeURI(params[key])}`)
-      .join('&')
-    return `?${end}`
-  }
-
-  /**
    * Exec async call wrapping Axios.js
    * @param method
    * @param url

@@ -13,7 +13,7 @@ export default config => ({
   // ----------------------------------
   // Client Compiler Configuration
   // ----------------------------------
-  client_compiler_public_path: `http://${config.server_host}:${config.server_port}/`,
+  client_compiler_public_path: `http://${config.server_host}:${config.server_port}/webpack/`,
   // ----------------------------------
   // Server Compiler Configuration
   // ----------------------------------

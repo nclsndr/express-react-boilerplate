@@ -21,7 +21,7 @@ export default config => ({
     chunkModules : true,
     colors : true
   },
-  client_compiler_public_path     : '/',
+  client_compiler_public_path     : '/static/',
   // ----------------------------------
   // Server Compiler Configuration
   // ----------------------------------

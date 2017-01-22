@@ -4,6 +4,7 @@
 import webpack from 'webpack'
 import cssnano from 'cssnano'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import AssetsPlugin from 'assets-webpack-plugin'
 import _debug from 'debug'
 
 import config from '../config'
@@ -32,7 +33,7 @@ webpackConfigClient.entry = {
   app: __DEV__
     ? [
       'webpack/hot/dev-server',
-      `webpack-hot-middleware/client?path=${config.client_compiler_public_path}__webpack_hmr`,
+      `webpack-hot-middleware/client`,
       APP_ENTRY_PATH
     ]
     : [
@@ -45,11 +46,9 @@ webpackConfigClient.entry = {
 // Bundle Output
 // ------------------------------------
 webpackConfigClient.output = {
-  filename: '[name].js',
+  filename: __PROD__ ? '[name].[hash].js' : '[name].js',
   path: __DEV__ ? '/' : paths.base(config.dir_dist, 'static'),
-  publicPath: __DEV__
-    ? `http://${config.server_host}:${config.server_port}/`
-    : config.client_compiler_public_path
+  publicPath: config.client_compiler_public_path
 }
 
 // ------------------------------------
@@ -79,6 +78,11 @@ if (__DEV__) {
         dead_code: true,
         warnings: false
       }
+    }),
+    new AssetsPlugin({
+      filename: config.client_compiler_assets_file,
+      fullPath: true,
+      path: paths.dist()
     })
   )
 }
@@ -297,7 +301,7 @@ if (!__DEV__) {
       /* eslint-enable */
     })
   webpackConfigClient.plugins.push(
-    new ExtractTextPlugin('[name].css', {
+    new ExtractTextPlugin(__PROD__ ? '[name].[contenthash].css' : '[name].css', {
       allChunks: true
     })
   )

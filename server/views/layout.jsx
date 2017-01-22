@@ -4,19 +4,14 @@
 import React, { Component, PropTypes } from 'react'
 
 const propTypes = {
-  env: PropTypes.string,
-  ssrOnly: PropTypes.bool,
-  head: PropTypes.object,
-  htmlData: PropTypes.string,
-  initialState: PropTypes.string
+  env: PropTypes.string.isRequired,
+  ssrOnly: PropTypes.bool.isRequired,
+  head: PropTypes.object.isRequired,
+  htmlData: PropTypes.string.isRequired,
+  initialState: PropTypes.string.isRequired,
+  webpackAssets: PropTypes.object.isRequired
 }
-const defaultProps = {
-  env: 'development',
-  ssrOnly: false,
-  head: {},
-  htmlData: '',
-  initialState: '{}'
-}
+
 /**
  * Main layout for the app
  * @param env
@@ -24,6 +19,7 @@ const defaultProps = {
  * @param head
  * @param htmlData
  * @param initialState
+ * @param webpackAssets
  * @returns {XML}
  */
 function layoutComponent({
@@ -31,14 +27,18 @@ function layoutComponent({
   ssrOnly,
   head,
   htmlData,
-  initialState
+  initialState,
+  webpackAssets
 }) {
-  const vendorLink = env === 'production'
-    ? '/static/vendor.js'
-    : '/vendor.js'
-  const appLink = env === 'production'
-    ? '/static/app.js'
-    : '/app.js'
+  const vendorJSLink = env === 'production'
+    ? `${webpackAssets.vendor.js}`
+    : '/webpack/vendor.js'
+  const appJSLink = env === 'production'
+    ? `${webpackAssets.app.js}`
+    : '/webpack/app.js'
+  const appCSSLink = env === 'production'
+    ? `${webpackAssets.app.css}`
+    : ''
   const createBodyMarkup = () => ({
     __html: htmlData
   })
@@ -59,7 +59,7 @@ function layoutComponent({
         {head.style.toComponent()}
         <link rel="icon" type="image/png" href="/static/favicon/favicon-32x32.png?v=1" />
         {env === 'production' && !ssrOnly
-          ? (<link rel="stylesheet" type="text/css" href="/static/app.css" />)
+          ? (<link rel="stylesheet" type="text/css" href={appCSSLink} />)
           : null
         }
       </head>
@@ -72,11 +72,11 @@ function layoutComponent({
           dangerouslySetInnerHTML={createPropsMarkup()}
         />
         {!ssrOnly
-          ? (<script src={vendorLink} />)
+          ? (<script src={vendorJSLink} />)
           : null
         }
         {!ssrOnly
-          ? (<script src={appLink} />)
+          ? (<script src={appJSLink} />)
           : null
         }
       </body>
@@ -84,6 +84,5 @@ function layoutComponent({
   )
 }
 layoutComponent.propTypes = propTypes
-layoutComponent.defaultProps = defaultProps
 
 export default layoutComponent
