@@ -7,6 +7,7 @@ import { Provider } from 'react-redux'
 import { Router, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import root from 'window-or-global'
+import { fromJS } from 'immutable'
 import { ROUTER } from './reducers/_names'
 
 import STACK from './stacks'
@@ -28,7 +29,7 @@ if (STACK.isDev && process.env.BROWSER) {
 // eslint-disable-next-line
 const initialState = root.__PRELOADED_STATE__ ? root.__PRELOADED_STATE__ : {}
 // Build the initial store
-const store = configureStore(browserHistory, initialState)
+const store = configureStore(browserHistory, fromJS(initialState))
 
 // Bind HMR on dev
 if (module.hot) {
@@ -37,9 +38,9 @@ if (module.hot) {
   )
 }
 
-// Used to set the react-router-redux reducer key
+// Used to set the react-router-redux reducer key || Adapted to Immutable
 const reactRouterReduxOptions = {
-  selectLocationState: state => state[ROUTER]
+  selectLocationState: state => state.get(ROUTER).toJS()
 }
 // Bind router on reducer
 const history = syncHistoryWithStore(browserHistory, store, reactRouterReduxOptions)

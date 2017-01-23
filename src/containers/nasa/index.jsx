@@ -41,6 +41,7 @@ class Nasa extends Component {
     Nasa.load(dispatch)
   }
   render() {
+    const { nasa } = this.props
     return (
       <div className="nasa_page">
         <Helmet title={this.state.title} />
@@ -50,14 +51,18 @@ class Nasa extends Component {
               <h1>Nasa Example</h1>
             </div>
           </div>
-          <div className="row">
-            <div className="c-s-8 c-s-o-2">
-              <h3>{this.props.nasa.apod.title}</h3>
-              <p>{this.props.nasa.apod.explanation}</p>
-              <p>By : {this.props.nasa.apod.copyright}</p>
-              <img src={this.props.nasa.apod.url} alt={this.props.nasa.apod.title} />
+          {nasa.isLoading
+          ? (<p>Loading</p>)
+          : (
+            <div className="row">
+              <div className="c-s-8 c-s-o-2">
+                <h3>{nasa.apod.title}</h3>
+                <p>{nasa.apod.explanation}</p>
+                <p>By : {nasa.apod.copyright}</p>
+                <img src={nasa.apod.url} alt={nasa.apod.title} />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     )
@@ -68,8 +73,9 @@ Nasa.defaultProps = defaultProps
 Nasa.contextTypes = contextTypes
 
 const mapStateToProps = state => ({
-  nasa: state.nasa
+  nasa: state.get('nasa').toJS()
 })
+
 const mapDispatchToProps = dispatch => ({
   dispatch
 })

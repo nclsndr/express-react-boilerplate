@@ -33,7 +33,7 @@ webpackConfigClient.entry = {
   app: __DEV__
     ? [
       'webpack/hot/dev-server',
-      `webpack-hot-middleware/client`,
+      'webpack-hot-middleware/client',
       APP_ENTRY_PATH
     ]
     : [

@@ -6,6 +6,7 @@ import { Router, match, createMemoryHistory } from 'react-router'
 import { Provider } from 'react-redux'
 import { renderToString } from 'react-dom/server'
 import Helmet from 'react-helmet'
+import { Map } from 'immutable'
 import _debug from 'debug'
 
 import config from '../../config'
@@ -34,12 +35,14 @@ export default function requestHandler(req, res, next) {
       const location = req.url
       const history = createMemoryHistory(location)
 
-      // Init store and populate SSR only data
-      const store = configureStore(history, {
+      // Init state with immutable
+      const initialState = Map({
         server: {
           initialPath: location
         }
       })
+      // Init store and populate SSR only data
+      const store = configureStore(history, initialState)
 
       // Call to component.load method contained into renderProps and wrap it into a promises
       // array

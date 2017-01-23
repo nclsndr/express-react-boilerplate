@@ -1,12 +1,14 @@
 /* ------------------------------------------
  * SSR Reducer
  *------------------------------------------- */
-const defaultState = {
-  initialPath: '/'
-}
+import { Map } from 'immutable'
 
-export default function ssrReducer(state = defaultState, action) {
-  switch (action.type) {
+const defaultState = Map({
+  initialPath: '/'
+})
+
+export default function ssrReducer(state = defaultState, { type }) {
+  switch (type) {
     default:
       return state
   }

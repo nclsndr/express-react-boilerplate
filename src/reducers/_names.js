@@ -5,5 +5,5 @@
 export const ROUTER = 'router'
 export const SERVER = 'server'
 
-// Add reducers names here
+// Add custom reducers names here
 export const NASA = 'nasa'
