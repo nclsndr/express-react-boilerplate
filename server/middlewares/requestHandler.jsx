@@ -82,17 +82,19 @@ export default function requestHandler(req, res, next) {
             />
           )
           const layoutWithDoctype = `<!DOCTYPE html> ${htmlLayout}`
-          return res.status(200).send(layoutWithDoctype)
+
+          // Handle 404 error
+          let statusCode = 200
+          renderProps.components.forEach(c => {
+            if (c.isNotFound && c.isNotFound() === true) statusCode = 404
+          })
+          return res.status(statusCode).send(layoutWithDoctype)
         })
         .catch(err => {
           debug('---------------- SSR ON ERROR ----------------')
           debug(err)
           return res.status(500).send('Error on SSR')
         })
-    }
-    // If targeted route doesn't match :: send 404
-    if (error === undefined && redirectLocation === undefined && renderProps === undefined) {
-      return res.status(404).send('Not found')
     }
   })
 }
