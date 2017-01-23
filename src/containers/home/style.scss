@@ -9,4 +9,29 @@
   h2 {
     margin-bottom: 2rem;
   }
+  ul {
+    padding-left: 1rem;
+  }
+  .commands {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .synopsis {
+    .exec_code {
+      display: block;
+      background: #EEE;
+      padding: 1rem;
+    }
+    .code_inline {
+      display: inline;
+      background: #EEE;
+    }
+    p {
+      line-height: 1.3em;
+    }
+    width: 90%;
+    padding-bottom: .8rem;
+    border-bottom: 1px solid #DDD;
+    margin-bottom: .8rem;
+  }
 }
