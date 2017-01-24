@@ -1,12 +1,14 @@
 /* ------------------------------------------
  * Catch and eval urls from express
+ * @flow
  *------------------------------------------- */
+
 import React from 'react'
 import { Router, match, createMemoryHistory } from 'react-router'
 import { Provider } from 'react-redux'
 import { renderToString } from 'react-dom/server'
 import Helmet from 'react-helmet'
-import { Map } from 'immutable'
+import { Map } from 'immutable'
 import _debug from 'debug'
 
 import config from '../../config'

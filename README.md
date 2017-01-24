@@ -19,6 +19,5 @@ $ npm run start
 
 ## TO DO
 
-- Immutable
 - Flow
 
