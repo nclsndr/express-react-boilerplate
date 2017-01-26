@@ -118,9 +118,14 @@ export default class RequestFactory {
           debugError('RequestFactory on reject')
           debugError(e)
           if (e instanceof Error) {
-            reject(e.message)
+            reject({
+              message: e.message,
+              object: e
+            })
           } else {
-            reject(e.data ? e.data : e)
+            reject({
+              object: e.data ? e.data : e
+            })
           }
         })
     })
