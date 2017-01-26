@@ -7,19 +7,19 @@
     "test": "tests"
   },
   "scripts": {
-    "flow": "flow",
+    "start": "NODE_ENV=production node dist/server.js",
     "dev": "better-npm-run dev",
     "dev:ssr": "better-npm-run dev:ssr",
     "dev:ssr-only": "better-npm-run dev:ssr-only",
     "build": "better-npm-run build",
     "build:client": "better-npm-run build:client",
     "build:server": "better-npm-run build:server",
-    "test": "better-npm-run test",
     "prod": "better-npm-run prod",
-    "clean": "rimraf dist",
-    "lint": "eslint .",
-    "lint:fix": "npm run lint -- --fix",
-    "start": "NODE_ENV=production node dist/server.js"
+    "test": "better-npm-run test:all",
+    "mocha": "better-npm-run mocha",
+    "lint": "better-npm-run lint",
+    "flow": "better-npm-run flow",
+    "clean": "rimraf dist"
   },
   "betterScripts": {
     "dev": {
@@ -65,18 +65,37 @@
         "DEBUG": "app:*"
       }
     },
-    "test": {
+    "prod": {
+      "command": "node dist/server",
+      "env": {
+        "NODE_ENV": "production",
+        "DEBUG": "app:*"
+      }
+    },
+    "test:all": {
+      "command": "mocha test --recursive --compilers js:babel-register && eslint . && flow check .",
+      "env": {
+        "NODE_ENV": "test",
+        "DEBUG": "test:*"
+      }
+    },
+    "mocha": {
       "command": "mocha test --recursive --compilers js:babel-register",
       "env": {
         "NODE_ENV": "test",
         "DEBUG": "test:*"
       }
     },
-    "prod": {
-      "command": "node dist/server",
+    "lint": {
+      "command": "eslint .",
       "env": {
-        "NODE_ENV": "production",
-        "DEBUG": "app:*"
+        "NODE_ENV": "test"
+      }
+    },
+    "flow": {
+      "command": "flow check .",
+      "env": {
+        "NODE_ENV": "test"
       }
     }
   },

@@ -1,6 +1,7 @@
 /* ------------------------------------------
  * Development server
  *------------------------------------------- */
+/* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
 import webpack from 'webpack'
 import _debug from 'debug'
 import server from './_base'

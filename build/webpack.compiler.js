@@ -1,6 +1,7 @@
 /* ------------------------------------------
  * Webpack custom compiler
  *------------------------------------------- */
+/* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
 import webpack from 'webpack'
 import _debug from 'debug'
 import config from '../config'

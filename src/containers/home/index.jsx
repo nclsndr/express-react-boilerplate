@@ -70,6 +70,34 @@ class Home extends Component {
                   <p>Useful to develop robot oriented features</p>
                 </div>
                 <div className="synopsis">
+                  <h3>Test</h3>
+                  <pre className="exec_code">
+                    $ npm test
+                  </pre>
+                  <p>Execute Mocha / ESLint / Flow test suite</p>
+                </div>
+                <div className="synopsis">
+                  <h3>Mocha</h3>
+                  <pre className="exec_code">
+                    $ npm run mocha
+                  </pre>
+                  <p>Execute Mocha unit tests</p>
+                </div>
+                <div className="synopsis">
+                  <h3>Lint</h3>
+                  <pre className="exec_code">
+                    $ npm run lint
+                  </pre>
+                  <p>Execute ESLint inspection</p>
+                </div>
+                <div className="synopsis">
+                  <h3>Flow</h3>
+                  <pre className="exec_code">
+                    $ npm run flow
+                  </pre>
+                  <p>Execute Flow inspection</p>
+                </div>
+                <div className="synopsis">
                   <h3>Build</h3>
                   <pre className="exec_code">
                     $ npm run build
@@ -110,12 +138,13 @@ class Home extends Component {
                   <p>Allias for <pre className="code_inline">NODE_ENV=production node dist/server.js</pre></p>
                   <p>Useful for heroku build</p>
                 </div>
-
-                <h3>test</h3>
-                <h3>clean</h3>
-                <h3>lint</h3>
-                <h3>lint:fix</h3>
-                <h3>flow</h3>
+                <div className="synopsis">
+                  <h3>Clean</h3>
+                  <pre className="exec_code">
+                    $ npm run clean
+                  </pre>
+                  <p>Delete dist directory</p>
+                </div>
               </div>
             </div>
             <div className="c-s-12 c-l-4">
@@ -125,12 +154,13 @@ class Home extends Component {
                 <li>React</li>
                 <li>React router</li>
                 <li>Redux</li>
-                <li>Helmet</li>
+                <li>React helmet</li>
                 <li>Immutable</li>
-                <li>Flow</li>
                 <li>SCSS</li>
-                <li>Icon font generator <i className="icon i_beer" /></li>
                 <li>Custom SCSS grid (mobile first)</li>
+                <li>Icon font generator <i className="icon i_beer" /></li>
+                <li>Flow</li>
+                <li>Mocha / Chai</li>
               </ul>
             </div>
           </div>

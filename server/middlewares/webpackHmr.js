@@ -1,6 +1,7 @@
 /* ------------------------------------------
  * Middleware wrapper for Webpack HMR middleware
  *------------------------------------------- */
+/* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import _debug from 'debug'
 

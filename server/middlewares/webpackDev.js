@@ -1,6 +1,7 @@
 /* ------------------------------------------
  * Middleware wrapper for Webpack dev middleware
  *------------------------------------------- */
+/* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import _debug from 'debug'
 import config from '../../config'
