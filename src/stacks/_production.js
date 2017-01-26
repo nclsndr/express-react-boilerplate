@@ -1,16 +1,14 @@
 /* ------------------------------------------
- * Frontend env & globals
+ * Development env production
+ * @flow
  *------------------------------------------- */
+import base from './_base'
 
-const target = 'dev'
-
-const STACKS = {
-  dev: {
-    isDev: true,
-    isProd: false,
-    isTest: false,
+export default (): Object => {
+  const baseValues = base()
+  const production = {
     verbose: false,
-    verboseErrors: true,
+    verboseErrors: false,
     baseUrl: 'http://localhost:3000',
     APIs: {
       nasa: {
@@ -18,12 +16,11 @@ const STACKS = {
         key: 'XzhKSQcMbUmYyjOvrMFawSSsGwR0zH1IS7a8EZXF'
       }
     },
-    ga: {
+    googleAnalytics: {
       enabled: false,
       id: 'XX-XXXXXX-X',
       debug: true
     }
   }
+  return Object.assign({}, production, baseValues)
 }
-
-export default STACKS[target]
