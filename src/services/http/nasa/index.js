@@ -1,9 +1,10 @@
 /* ------------------------------------------
  * NASA API example
+ * @flow
  *------------------------------------------- */
 import request from '../request'
 
-export function getAPOD() {
+export function getAPOD(): Promise<Object> {
   return request.make({
     method: 'get',
     url: 'https://api.nasa.gov/planetary/apod',

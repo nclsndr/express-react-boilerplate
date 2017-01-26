@@ -1,5 +1,6 @@
 /* ------------------------------------------
  * NASA Example actions
+ * @flow
  *------------------------------------------- */
 import * as constants from '../constants/nasa'
 import { getAPOD } from '../services/http/nasa'
@@ -7,36 +8,38 @@ import { getAPOD } from '../services/http/nasa'
 /* ------------------------------------------
  * actionNasaGetAPOD
  *------------------------------------------- */
-function actionNasaGetAPODRequest() {
+function actionNasaGetAPODRequest(): Object {
   return {
     type: constants.NASA_GET_APOD_REQUEST,
     payload: {},
-    error: null
+    error: false
   }
 }
-function actionNasaGetAPODSuccess(response) {
+function actionNasaGetAPODSuccess(response: Object): Object {
   return {
     type: constants.NASA_GET_APOD_SUCCESS,
     payload: response,
-    error: null
+    error: false
   }
 }
-function actionNasaGetAPODFailure(error) {
+function actionNasaGetAPODFailure(error: Object): Object {
   return {
     type: constants.NASA_GET_APOD_FAILURE,
-    payload: {},
-    error
+    payload: {
+      error
+    },
+    error: true
   }
 }
 
 /**
  * @returns {Function}
  */
-export function actionNasaGetAPOD() { // eslint-disable-line
-  return dispatch => {
+export function actionNasaGetAPOD(): Function { // eslint-disable-line
+  return (dispatch: Function) => {
     dispatch(actionNasaGetAPODRequest())
     return getAPOD()
-      .then(res => dispatch(actionNasaGetAPODSuccess(res)))
-      .catch(error => dispatch(actionNasaGetAPODFailure(error)))
+      .then((res: Object) => dispatch(actionNasaGetAPODSuccess(res)))
+      .catch((error: Object) => dispatch(actionNasaGetAPODFailure(error)))
   }
 }
