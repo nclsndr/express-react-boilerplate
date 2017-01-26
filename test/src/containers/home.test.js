@@ -1,5 +1,6 @@
 /* ------------------------------------------
  * Home container test
+ * https://github.com/airbnb/enzyme
  *------------------------------------------- */
 import React from 'react';
 import jsdom from 'mocha-jsdom'
@@ -11,7 +12,7 @@ import configureStore from '../../../src/store'
 import Home from '../../../src/containers/home'
 
 describe('<Home />', () => {
-  jsdom()
+  jsdom() // Used to provide a browser like env
   let wrapper
   before('Render component', () => {
     const store = configureStore({})
