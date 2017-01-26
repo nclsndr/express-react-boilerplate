@@ -126,16 +126,16 @@ class Home extends Component {
                   <pre className="exec_code">
                     $ npm run prod
                   </pre>
-                  <p>Execute <pre className="code_inline">dist/server.js</pre></p>
+                  <p>Execute <span className="code_inline">dist/server.js</span></p>
                   <p>DO NOT USE THIS COMMAND ON REAL PROD ENV</p>
-                  <p>Prefer use : <pre className="code_inline">NODE_ENV=production node dist/server.js</pre> or <pre className="code_inline">$ npm start</pre></p>
+                  <p>Prefer use : <span className="code_inline">NODE_ENV=production node dist/server.js</span> or <span className="code_inline">$ npm start</span></p>
                 </div>
                 <div className="synopsis">
                   <h3>Start</h3>
                   <pre className="exec_code">
                     $ npm start
                   </pre>
-                  <p>Allias for <pre className="code_inline">NODE_ENV=production node dist/server.js</pre></p>
+                  <p>Allias for <span className="code_inline">NODE_ENV=production node dist/server.js</span></p>
                   <p>Useful for heroku build</p>
                 </div>
                 <div className="synopsis">

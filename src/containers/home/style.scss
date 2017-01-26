@@ -21,13 +21,15 @@
       display: block;
       background: #EEE;
       padding: 1rem;
+      margin: 1rem 0 .5rem 0;
     }
     .code_inline {
+      font-family: monospace,monospace;
       display: inline;
       background: #EEE;
     }
     p {
-      line-height: 1.3em;
+      line-height: 1.5em;
     }
     width: 90%;
     padding-bottom: .8rem;

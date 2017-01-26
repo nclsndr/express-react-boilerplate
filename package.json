@@ -73,17 +73,16 @@
       }
     },
     "test:all": {
-      "command": "mocha test --recursive --compilers js:babel-register && eslint . && flow check .",
+      "command": "mocha test --recursive --compilers js:babel-register --require ignore-styles && eslint . && flow check .",
       "env": {
         "NODE_ENV": "test",
         "DEBUG": "test:*"
       }
     },
     "mocha": {
-      "command": "mocha test --recursive --compilers js:babel-register",
+      "command": "mocha test --recursive --compilers js:babel-register --require ignore-styles",
       "env": {
-        "NODE_ENV": "test",
-        "DEBUG": "test:*"
+        "NODE_ENV": "test"
       }
     },
     "lint": {
@@ -158,6 +157,7 @@
     "chai": "^3.5.0",
     "css-loader": "^0.26.1",
     "cssnano": "^3.10.0",
+    "enzyme": "^2.7.1",
     "eslint": "^3.13.1",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-config-standard": "^6.2.1",
@@ -176,6 +176,7 @@
     "flow-bin": "^0.37.4",
     "fontgen-loader": "^0.2.1",
     "gulp": "^3.9.1",
+    "ignore-styles": "^5.0.1",
     "imports-loader": "^0.7.0",
     "isparta-loader": "^2.0.0",
     "json": "^9.0.4",
