@@ -1,11 +1,13 @@
 /* ------------------------------------------
  * Provide XHR wrapper returning a Promise
+ * @flow
  *------------------------------------------- */
 import axios from 'axios'
 import _ from 'lodash'
 import _debug from 'debug'
 
-const debug = _debug('front:services:http')
+const debugAll = _debug('debug:src:services:http')
+const debugError = _debug('app:src:services:http')
 
 export default class RequestFactory {
   /**
@@ -13,8 +15,11 @@ export default class RequestFactory {
    * @param rest (Array)
    * @returns {string}
    */
-  static formatREST(rest) {
-    return `/${rest.join('/')}`
+  static formatREST(rest: Array<string | number>): string {
+    if (_.isArray(rest) && !_.isEmpty(rest)) {
+      return `/${rest.join('/')}`
+    }
+    return ''
   }
 
   /**
@@ -65,7 +70,9 @@ export default class RequestFactory {
         baseURL: '',
         validateStatus: status => {
           return status >= 200 && status < 300
-        }
+        },
+        progress: () => {},
+        headers: {}
         // transformRequest: [transformRequestData => {
         //   return transformRequestData
         // }],
@@ -98,18 +105,18 @@ export default class RequestFactory {
         }
       }
 
-      debug('RequestFactory request options')
-      debug(options)
+      debugAll('RequestFactory request options')
+      debugAll(options)
 
       axios(options)
-        .then(r => {
-          debug('RequestFactory on resolve')
-          debug(r)
-          resolve(r.data)
+        .then(res => {
+          debugAll('RequestFactory on resolve')
+          debugAll(res)
+          resolve(res.data)
         })
         .catch(e => {
-          debug('RequestFactory on reject')
-          debug(e)
+          debugError('RequestFactory on reject')
+          debugError(e)
           if (e instanceof Error) {
             reject(e.message)
           } else {

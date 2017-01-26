@@ -1,7 +1,12 @@
 [include]
 ./server
-.src
-.config
-.build
+./src
+./config
+./build
 
 [ignore]
+.*/test/*.
+.*/node_modules/flow-runtime/*.
+.*/node_modules/json/*.
+
+[libs]

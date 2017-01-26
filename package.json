@@ -66,10 +66,10 @@
       }
     },
     "test": {
-      "command": "babel-node ./node_modules/karma/bin/karma start build/karma.conf",
+      "command": "mocha test --recursive --compilers js:babel-register",
       "env": {
         "NODE_ENV": "test",
-        "DEBUG": "app:*"
+        "DEBUG": "test:*"
       }
     },
     "prod": {
@@ -136,6 +136,7 @@
     "babel-register": "^6.18.0",
     "babel-runtime": "^6.20.0",
     "better-npm-run": "0.0.14",
+    "chai": "^3.5.0",
     "css-loader": "^0.26.1",
     "cssnano": "^3.10.0",
     "eslint": "^3.13.1",
@@ -160,6 +161,8 @@
     "isparta-loader": "^2.0.0",
     "json": "^9.0.4",
     "json-loader": "^0.5.4",
+    "mocha": "^3.2.0",
+    "node-mocks-http": "^1.5.6",
     "node-sass": "^4.3.0",
     "nodemon": "^1.11.0",
     "postcss-loader": "^1.2.2",

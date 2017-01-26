@@ -17,7 +17,7 @@ const defaultProps = {
  * @param any
  * @returns {XML}
  */
-function patternPureComponent({
+function pureComponentPattern({
     any
 }) {
   return (
@@ -26,7 +26,7 @@ function patternPureComponent({
     </div>
   )
 }
-patternPureComponent.propTypes = propTypes
-patternPureComponent.defaultProps = defaultProps
+pureComponentPattern.propTypes = propTypes
+pureComponentPattern.defaultProps = defaultProps
 
-export default patternPureComponent
+export default pureComponentPattern

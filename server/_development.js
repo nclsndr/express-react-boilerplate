@@ -6,9 +6,9 @@ import _debug from 'debug'
 import server from './_base'
 import config from '../config'
 import webpackConfigClient from '../build/webpack.config.client'
-import devErrorMiddleware from './middlewares/error-dev'
-import webpackDevMiddlewareWrapper from './middlewares/webpack-dev'
-import webpackHMRMiddlewareWrapper from './middlewares/webpack-hmr'
+import devErrorMiddleware from './middlewares/errorDev'
+import webpackDevMiddlewareWrapper from './middlewares/webpackDev'
+import webpackHMRMiddlewareWrapper from './middlewares/webpackHmr'
 
 const debug = _debug('app:server:development')
 const { __DEV__, __PROD__, __TEST__, __SSR_ONLY__ } = config.globals
