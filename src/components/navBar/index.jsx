@@ -9,7 +9,7 @@ const defaultProps = {}
 
 function navBar() {
   return (
-    <header>
+    <header className="app_header">
       <p>Universal Express React Redux boilerplate - NCLSNDR</p>
       <ul className="links">
         <li><Link to="/">Home</Link></li>
