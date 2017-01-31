@@ -106,22 +106,6 @@ class Home extends Component {
                   <p>App is built with NODE_ENV=production</p>
                 </div>
                 <div className="synopsis">
-                  <h3>Build:client</h3>
-                  <pre className="exec_code">
-                    $ npm run build:client
-                  </pre>
-                  <p>Compile only front-end + copy assets to dist directory</p>
-                  <p>Partial app is built with NODE_ENV=production</p>
-                </div>
-                <div className="synopsis">
-                  <h3>Build:server</h3>
-                  <pre className="exec_code">
-                    $ npm run build:server
-                  </pre>
-                  <p>Compile only back-end</p>
-                  <p>Partial app is built with NODE_ENV=production</p>
-                </div>
-                <div className="synopsis">
                   <h3>Prod</h3>
                   <pre className="exec_code">
                     $ npm run prod
@@ -161,6 +145,7 @@ class Home extends Component {
                 <li>Icon font generator <i className="icon i_beer" /></li>
                 <li>Flow</li>
                 <li>Mocha / Chai</li>
+                <li>Enzyme</li>
               </ul>
             </div>
           </div>
