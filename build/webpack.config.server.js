@@ -12,7 +12,7 @@ const debug = _debug('app:webpack:config:server')
 const paths = config.utils_paths
 const { __DEV__, __PROD__, __TEST__ } = config.globals
 
-debug('Create configuration.')
+debug('Create Webpack server configuration.')
 const webpackConfigServer = {
   name: 'server',
   target: 'node',
