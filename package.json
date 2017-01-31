@@ -4,7 +4,7 @@
   "description": "Isomorphic boilerplate",
   "main": "dist/server.js",
   "directories": {
-    "test": "tests"
+    "test": "test"
   },
   "scripts": {
     "start": "NODE_ENV=production node dist/server.js",
@@ -12,8 +12,6 @@
     "dev:ssr": "better-npm-run dev:ssr",
     "dev:ssr-only": "better-npm-run dev:ssr-only",
     "build": "better-npm-run build",
-    "build:client": "better-npm-run build:client",
-    "build:server": "better-npm-run build:server",
     "prod": "better-npm-run prod",
     "test": "better-npm-run test:all",
     "mocha": "better-npm-run mocha",
@@ -23,21 +21,21 @@
   },
   "betterScripts": {
     "dev": {
-      "command": "gulp dev-front",
+      "command": "babel-node bin/dev-front",
       "env": {
         "NODE_ENV": "development",
         "DEBUG": "app:*"
       }
     },
     "dev:ssr": {
-      "command": "gulp dev-ssr",
+      "command": "babel-node bin/dev-ssr",
       "env": {
         "NODE_ENV": "development",
         "DEBUG": "app:*"
       }
     },
     "dev:ssr-only": {
-      "command": "gulp dev-ssr",
+      "command": "babel-node bin/dev-ssr",
       "env": {
         "SSR_ONLY": "enabled",
         "NODE_ENV": "development",
@@ -45,21 +43,7 @@
       }
     },
     "build": {
-      "command": "npm run clean && gulp build",
-      "env": {
-        "NODE_ENV": "production",
-        "DEBUG": "app:*"
-      }
-    },
-    "build:client": {
-      "command": "npm run clean && gulp frontend-build",
-      "env": {
-        "NODE_ENV": "production",
-        "DEBUG": "app:*"
-      }
-    },
-    "build:server": {
-      "command": "npm run clean && gulp backend-build",
+      "command": "rimraf dist && babel-node bin/build",
       "env": {
         "NODE_ENV": "production",
         "DEBUG": "app:*"
@@ -175,7 +159,6 @@
     "flow": "^0.2.3",
     "flow-bin": "^0.37.4",
     "fontgen-loader": "^0.2.1",
-    "gulp": "^3.9.1",
     "ignore-styles": "^5.0.1",
     "imports-loader": "^0.7.0",
     "isparta-loader": "^2.0.0",
