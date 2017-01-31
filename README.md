@@ -17,7 +17,17 @@ $ npm run dev:ssr-only
 $ npm run start
 ```
 
-## TO DO
+## Dependencies
 
+- Express 4
+- React
+- React router
+- Redux
+- React helmet
+- Immutable
+- SCSS
+- Custom SCSS grid (mobile first)
+- Icon font generator
 - Flow
-
+- Mocha / Chai
+- Enzyme
