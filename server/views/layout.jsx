@@ -30,13 +30,13 @@ function layoutComponent({
   initialState,
   webpackAssets
 }) {
-  const vendorJSLink = env === 'production'
+  const vendorJSLink = env === 'production' && webpackAssets.vendor && webpackAssets.vendor.js
     ? `${webpackAssets.vendor.js}`
     : '/webpack/vendor.js'
-  const appJSLink = env === 'production'
+  const appJSLink = env === 'production' && webpackAssets.app && webpackAssets.app.js
     ? `${webpackAssets.app.js}`
     : '/webpack/app.js'
-  const appCSSLink = env === 'production'
+  const appCSSLink = env === 'production' && webpackAssets.app && webpackAssets.app.css
     ? `${webpackAssets.app.css}`
     : ''
   const createBodyMarkup = () => ({
@@ -57,7 +57,7 @@ function layoutComponent({
         {head.script.toComponent()}
         {head.noscript.toComponent()}
         {head.style.toComponent()}
-        <link rel="icon" type="image/png" href="/static/favicon/favicon-32x32.png?v=1" />
+        <link rel="icon" type="image/png" href="/static/favicon/favicon-32x32.png" />
         {env === 'production' && !ssrOnly
           ? (<link rel="stylesheet" type="text/css" href={appCSSLink} />)
           : null
