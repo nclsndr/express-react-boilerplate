@@ -14,12 +14,14 @@ import webpackHMRMiddlewareWrapper from './middlewares/webpackHmr'
 const debug = _debug('app:server:development')
 const { __DEV__, __PROD__, __TEST__, __SSR_ONLY__ } = config.globals
 
-let middlewares = []
+let middlewares = [
+  devErrorMiddleware
+]
 if (!__SSR_ONLY__) {
   const compiler = webpack(webpackConfigClient)
   const { publicPath } = webpackConfigClient.output
   middlewares = [
-    devErrorMiddleware,
+    ...middlewares,
     webpackDevMiddlewareWrapper(compiler, publicPath),
     webpackHMRMiddlewareWrapper(compiler)
   ]

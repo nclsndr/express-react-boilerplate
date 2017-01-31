@@ -22,10 +22,11 @@ const { __SSR_ONLY__ } = config.globals
 const debug = _debug('app:server:requestHandler')
 
 export default function requestHandler(req: Object, res: Object, next: Function) {
-  // If path start with /static :: send it to next()
-  if (req.url.match(/^\/static\/.*/i)) next()
-
-  match({ // Match routes from router against path provided by express
+  // If path start with /static :: return next()
+  if (req.url.match(/^\/static\/.*/i) !== null) {
+    return next()
+  }
+  return match({ // Match routes from router against path provided by express
     routes,
     location: req.url
   }, (error, redirectLocation, renderProps) => {

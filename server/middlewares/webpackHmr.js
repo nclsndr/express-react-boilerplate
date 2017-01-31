@@ -7,7 +7,13 @@ import _debug from 'debug'
 
 const debug = _debug('app:server:webpack-hmr')
 
-export default function (compiler, opts) {
+/**
+ * Webpack Hot Middleware wrapper
+ * @param compiler
+ * @param opts
+ * @returns {*}
+ */
+export default function (compiler: Object, opts: Object): Function {
   debug('Enable Webpack Hot Module Replacement (HMR).')
   return webpackHotMiddleware(compiler, opts)
 }

@@ -1,5 +1,6 @@
 /* ------------------------------------------
  * Middleware wrapper for Webpack dev middleware
+ * @flow
  *------------------------------------------- */
 /* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
 import webpackDevMiddleware from 'webpack-dev-middleware'
@@ -14,7 +15,7 @@ const debug = _debug('app:server:webpack-dev')
  * @param compiler
  * @param publicPath
  */
-export default function (compiler, publicPath) {
+export default function (compiler: Object, publicPath: string): Function {
   debug('Enable webpack dev middleware.')
   return webpackDevMiddleware(compiler, {
     publicPath,

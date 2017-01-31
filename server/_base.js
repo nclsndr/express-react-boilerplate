@@ -15,9 +15,10 @@ export default (config: Object, middlewares: Array<any> = []): Object => {
   const { __DEV__, __PROD__, __TEST__, __SSR_ONLY__ } = config.globals
 
   const app = express()
-  app.use(cookieParser())
 
-  const staticAssetsPath = __DEV__ ? paths.static() : paths.dist('static')
+  app.use(cookieParser()) // add cookieParser to prepare auth or tracking behaviors
+
+  const staticAssetsPath = __DEV__ ? paths.static() : paths.dist(config.dir_static)
   app.use(config.server_assets_path, express.static(staticAssetsPath))
 
   middlewares.forEach(m => { // add env based middlewares to the app
