@@ -17,19 +17,20 @@ const defaultProps = {}
 
 const contextTypes = {}
 const childContextTypes = {
+  stack: PropTypes.object,
   appData: PropTypes.object
 }
 
 class AppLayer extends Component {
-  static getChildContext() { // Broadcast static values into children
+  constructor(props, context) {
+    super(props)
+    this.ctx = context
+  }
+  getChildContext() { // Broadcast static values into children
     return {
       stack: STACK,   // Provide stack spec from src
       appData         // Provide static data from data file
     }
-  }
-  constructor(props, context) {
-    super(props)
-    this.ctx = context
   }
   // LifeCycle methods if needed
   // componentWillMount() {}
