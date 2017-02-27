@@ -17,15 +17,16 @@ const debug = _debug('app:server:webpack-dev')
  */
 export default function (compiler: Object, publicPath: string): Function {
   debug('Exec webpack dev middleware.')
-  console.log('config : ', config)
   return webpackDevMiddleware(compiler, {
     publicPath,
     contentBase: paths.base(config.dir_client),
     hot: true,
-    quiet: config.server_compiler_quiet,
-    noInfo: config.server_compiler_quiet,
     lazy: false,
-    stats: config.server_compiler_stats,
+    stats: {
+      chunks: true,
+      chunkModules: true,
+      colors: true
+    },
     serverSideRender: true
   })
 }
