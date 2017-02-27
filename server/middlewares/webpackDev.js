@@ -16,7 +16,8 @@ const debug = _debug('app:server:webpack-dev')
  * @param publicPath
  */
 export default function (compiler: Object, publicPath: string): Function {
-  debug('Enable webpack dev middleware.')
+  debug('Exec webpack dev middleware.')
+  console.log('config : ', config)
   return webpackDevMiddleware(compiler, {
     publicPath,
     contentBase: paths.base(config.dir_client),

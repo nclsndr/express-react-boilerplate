@@ -3,6 +3,7 @@
  *------------------------------------------- */
 import _debug from 'debug'
 import fs from 'fs-extra'
+import mkdirp from 'mkdirp' // eslint-disable-line
 
 import webpackCompiler from './webpack.compiler'
 import config from '../config'
@@ -21,7 +22,7 @@ export default function webpackEngineCompiler(webpackConfig) {
     if (isTargetBrowser) {
       try {
         debug('Create static directory in dist directory.')
-        fs.mkdirSync(paths.dist(config.dir_static))
+        mkdirp.sync(paths.dist(config.dir_static))
       } catch (e) {
         debug('Compiler create static directory encountered an error.', e.message)
       }
@@ -36,7 +37,7 @@ export default function webpackEngineCompiler(webpackConfig) {
     debug('Run compiler')
     webpackCompiler(webpackConfig)
       .then(stats => {
-        if (stats.warnings.length && config.compiler_fail_on_warning) {
+        if (stats.hasWarnings() && config.compiler_fail_on_warning) {
           debug('Config set to fail on warning')
           reject(stats)
         } else {

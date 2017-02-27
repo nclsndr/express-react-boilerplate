@@ -65,14 +65,11 @@ function webpackBuild(stack, compilerOptions) {
       .then(stats => {
         debug(`${stack} :: FINISH ON SUCCESS`)
         debug('----------------------------------------')
-        console.log(stats.toString({ chunks: false, colors: true }))
         resolve(stats)
       })
       .catch(err => {
         debug(`${stack} :: FINISH ON ERROR`)
-        console.log(err)
         debug('----------------------------------------')
-
         reject(err)
       })
   })
@@ -189,20 +186,28 @@ export function buildFrontend() {
  * Used to launch backend & frontend
  */
 export function buildAll() {
-  Promise.all(
-    webpackBuild('FRONTEND BUILD', webpackConfigClient),
-    webpackBuild('BACKEND BUILD', webpackConfigServer)
-  )
+  webpackBuild('FRONTEND BUILD', webpackConfigClient)
     .then(resolvers => {
-        debug('----------------------------------------')
-        debug('--------------- BUILD END --------------')
-        debug('----------------------------------------')
+        debug('---------------------------------------------')
+        debug('----- FRONTEND BUILD ENDS WITH NO ERROR -----')
+        debug('---------------------------------------------')
+        webpackBuild('BACKEND BUILD', webpackConfigServer)
+          .then(() => {
+            debug('--------------------------------------------')
+            debug('----- BACKEND BUILD ENDS WITH NO ERROR -----')
+            debug('--------------------------------------------')
+          })
+          .catch(() => {
+            debug('------------------------------------------')
+            debug('------- BACKEND BUILD HAS ERROR(S) -------')
+            debug('------------------------------------------')
+          })
       })
     .catch(errors => {
-      debug('----------------------------------------')
-      debug('------------ BUILD END ERROR -----------')
-      for (let [key, value] of Object.entries(errors)){
-        console.log(key, value)
+      if (errors && Object.keys(errors).length > 0) {
+        debug('-------------------------------------------')
+        debug('------- FRONTEND BUILD HAS ERROR(S) -------')
+        debug('-------------------------------------------')
       }
     })
 }

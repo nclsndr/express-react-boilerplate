@@ -6,7 +6,7 @@ import express from 'express'
 import cookieParser from 'cookie-parser'
 import _debug from 'debug'
 
-import requestHandler from './middlewares/requestHandler'
+import requestHandler from '../server/middlewares/requestHandler'
 
 export default (config: Object, middlewares: Array<any> = []): Object => {
   const debug = _debug('app:server:base')

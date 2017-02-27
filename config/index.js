@@ -18,7 +18,7 @@ try {
   fs.lstatSync(`${__dirname}/${overridesFilename}.js`)
   hasOverridesFile = true
 } catch (e) {
-  debug('------- NOT FOUND ENV -------')
+  debug('------- ERROR: ENV NOT FOUND -------')
 }
 
 // Overrides file exists, so we can attempt to require it.

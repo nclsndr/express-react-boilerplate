@@ -1,0 +1,50 @@
+---------------------
+WEBPACK CONFIG
+---------------------
+amd?
+bail?
+cache?
+context?
+dependencies?
+devServer?
+devtool?
+entry
+externals?
+loader?
+module?
+name?
+node?
+output?
+performance?
+plugins?
+profile?
+recordsInputPath?
+recordsOutputPath?
+recordsPath?
+resolve?
+resolveLoader?
+stats?
+target?
+watch?
+watchOptions?
+
+---------------------
+configuration.resolveLoader
+---------------------
+ alias?
+ aliasFields?
+ cachePredicate?
+ descriptionFiles?
+ enforceExtension?
+ enforceModuleExtension?
+ extensions?
+ fileSystem?
+ mainFields?
+ mainFiles?
+ moduleExtensions?
+ modules?
+ plugins?
+ resolver?
+ symlinks?
+ unsafeCache?
+ useSyncFileSystemCalls?

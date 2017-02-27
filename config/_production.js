@@ -11,27 +11,17 @@ export default config => ({
   // to fix this issue:
   // http://stackoverflow.com/questions/34133808/webpack-ots-parsing-error-loading-fonts/34133809#34133809
   // ----------------------------------
+  // Global Compiler Configuration
+  // ----------------------------------
+  compiler_fail_on_warning: false,
+  // ----------------------------------
   // Client Compiler Configuration
   // ----------------------------------
-  client_compiler_fail_on_warning : false,
-  client_compiler_hash_type       : 'chunkhash',
-  client_compiler_devtool         : null,
-  client_compiler_stats           : {
-    chunks : true,
-    chunkModules : true,
-    colors : true
-  },
+  client_compiler_devtool         : false,
   client_compiler_public_path     : '/static/',
   // ----------------------------------
   // Server Compiler Configuration
   // ----------------------------------
-  server_compiler_fail_on_warning : false,
-  server_compiler_hash_type       : 'chunkhash',
-  server_compiler_devtool         : null,
-  server_compiler_stats           : {
-    chunks : true,
-    chunkModules : true,
-    colors : true
-  },
+  server_compiler_devtool         : false,
   server_compiler_public_path     : '/',
 })

@@ -29,21 +29,24 @@ const config = {
   server_assets_path: '/static',
 
   // ----------------------------------
+  // Global Compiler Configuration
+  // ----------------------------------
+  compiler_fail_on_warning: false,
+  // ----------------------------------
   // Client Compiler Configuration
   // ----------------------------------
   client_compiler_assets_file: 'webpack-assets.json',
   client_compiler_css_modules: false,
-  client_compiler_devtool: '#eval-source-map',
+  client_compiler_devtool: 'eval-source-map',
   client_compiler_debug: false,
   client_compiler_hash_type: 'hash',
-  client_compiler_fail_on_warning: false,
   client_compiler_quiet: false,
   client_compiler_public_path: '/',
   client_compiler_wait_before_reload: 500,
   client_compiler_stats: {
-    chunks: true,
-    chunkModules: false,
-    colors: true
+    chunks : true,
+    chunkModules : true,
+    colors : true
   },
   client_compiler_vendor: [
     'axios',
@@ -64,19 +67,17 @@ const config = {
   // Server Compiler Configuration
   // ----------------------------------
   server_compiler_css_modules: false,
-  server_compiler_devtool: '#eval-source-map',
+  server_compiler_devtool: 'eval-source-map',
   server_compiler_debug: false,
   server_compiler_hash_type: 'hash',
-  server_compiler_fail_on_warning: false,
   server_compiler_quiet: false,
   server_compiler_public_path: '/',
   server_compiler_wait_before_reload: 500,
   server_compiler_stats: {
-    chunks: true,
-    chunkModules: false,
-    colors: true
+    chunks : true,
+    chunkModules : true,
+    colors : true
   },
-
   // ----------------------------------
   // Test Configuration
   // ----------------------------------

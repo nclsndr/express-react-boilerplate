@@ -20,13 +20,17 @@ const webpackConfigServer = {
     importType: 'commonjs',
     modulesDir: 'node_modules'
   }),
-  debug: config.server_compiler_debug,
   devtool: config.server_compiler_devtool,
   resolve: {
-    root: __DEV__ ? paths.base(config.dir_server) : paths.base(config.dir_dist),
-    extensions: ['', '.js', '.jsx', '.json']
+    extensions: ['.js', '.jsx', '.json'],
+    modules: [
+      __DEV__ ? paths.server() : paths.dist(),
+      'node_modules'
+    ]
   },
-  module: {},
+  module: {
+    rules: []
+  },
   plugins: [],
   node: {
     console: true,
@@ -37,7 +41,7 @@ const webpackConfigServer = {
     __dirname: true
   },
   resolveLoader: {
-    fallback: [
+    modules: [
       paths.base('build', 'loaders'),
       path.join(process.cwd(), 'node_modules')
     ]
@@ -67,19 +71,25 @@ webpackConfigServer.output = {
 // ------------------------------------
 if (__DEV__) {
   webpackConfigServer.plugins.push(
-    new webpack.BannerPlugin('require("source-map-support").install();',
-      { raw: true, entryOnly: false })
+    new webpack.BannerPlugin({
+      banner: 'require("source-map-support").install();',
+      raw: true,
+      entryOnly: false
+    }),
+    new webpack.LoaderOptionsPlugin({
+      debug: config.server_compiler_debug
+    })
   )
 }
 
 // ------------------------------------
 // Loaders
 // ------------------------------------
-webpackConfigServer.module.loaders = [
+webpackConfigServer.module.rules = [
   {
     test: /\.(js|jsx)$/,
     exclude: '/node_modules/',
-    loader: 'babel',
+    loader: 'babel-loader',
     query: {
       presets: ['es2015', 'react', 'stage-0'],
       env: {
@@ -92,55 +102,40 @@ webpackConfigServer.module.loaders = [
     }
   },
   {
-    test: /\.json$/,
-    include: [
-      paths.server(),
-      paths.client()
-    ],
-    loader: 'json'
-  },
-  {
-    test: /\.pug$/,
-    loaders: [
-      'pug'
-    ]
-  },
-  {
     test: /\.css$/,
-    loader: 'null-loader' // prevent styles to be loaded in server
+    use: ['null-loader'] // prevent styles to be loaded in server
   },
   {
     test: /\.scss$/,
-    loader: 'null-loader' // prevent styles to be loaded in server
+    use: ['null-loader'] // prevent styles to be loaded in server
   },
   {
     test: /\.woff(\?.*)?$/,
-    loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff'
+    use: ['null-loader']
   },
   {
     test: /\.woff2(\?.*)?$/,
-    loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2'
+    use: ['null-loader']
   },
   {
     test: /\.otf(\?.*)?$/,
-    loader: 'file?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype'
+    use: ['null-loader']
   },
   {
     test: /\.ttf(\?.*)?$/,
-    loader:
-      'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream'
+    use: ['null-loader']
   },
   {
     test: /\.eot(\?.*)?$/,
-    loader: 'file?prefix=fonts/&name=[path][name].[ext]'
+    use: ['null-loader']
   },
   {
     test: /\.svg(\?.*)?$/,
-    loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml'
+    use: ['null-loader']
   },
   {
     test: /\.(png|jpg)$/,
-    loader: 'url?limit=8192'
+    use: ['null-loader']
   }
 ]
 
