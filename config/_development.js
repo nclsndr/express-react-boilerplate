@@ -1,8 +1,7 @@
 /* ------------------------------------------
  * Development App configuration
  *
- * N.B. : consider add a default config value into ./_base when adding a param in the following
- * file
+ * N.B. : consider add a default config value into ./_base when adding a param in the following file
  *------------------------------------------- */
 /* eslint key-spacing:0, quote-props:0, spaced-comment:0 */
 

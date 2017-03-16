@@ -25,14 +25,22 @@ const childContextTypes = {
 // Respect PascalCase for classes
 class Pattern extends Component {
   // Static methods definition
-  // static getChildContext() {}
+  // static any() { return 'any' }
 
   constructor(props, context) {
     // constructor always takes parent props
     super(props)
     this.ctx = context
-    this.youClickOnly = this.youClickOnly.bind(this)
+    this.state = {
+      anything: 'Anything else on separated renderer',
+      list: [
+        'one',
+        'two'
+      ]
+    }
+    this.alertAnything = this.alertAnything.bind(this)
   }
+  // getChildContext() {}
 
   // LifeCycle methods if needed
   // componentWillMount() {}
@@ -43,21 +51,46 @@ class Pattern extends Component {
   // componentDidUpdate() {}
   // componentWillUnmount() {}
 
-  // Module level methods and callbacks
-  youClickAndNeedToBind(m) {
-    console.log(`click on text ${m}`)
+  // Event callbacks
+  youClickAndNeedToBind(elementName) {
+    console.log(`click on text ${elementName}`)
+    // this is also bound to the component context
+    console.log('this.state : ', this.state)
+  }
+  alertAnything() {
+    alert(this.state.anything)
   }
 
-  youClickOnly() {
-    console.log('click only')
+  // component methods
+  computeSomething() {
+    return this.state.anything.length
+  }
+
+  // Template parts renderer
+  // Consider making a stateless component if it makes sens
+  renderAnythingElse() {
+    const { anything } = this.state
+    return (<p>{anything}</p>)
   }
 
   render() {
     // return use () to wrap rendered jsx
+    const { any } = this.props
+    const { list } = this.state
     return (
       <div>
-        <button onClick={this.youClickAndNeedToBind.bind(this, 'yo')}>Hello Pattern {this.props.any}</button>
-        <button onClick={this.youClickOnly}>Simple click</button>
+        {/* Default event handler */}
+        <button onClick={this.alertAnything}>
+          Hello Pattern outputs : {any} :: {this.computeSomething()}
+        </button>
+        {/* Only use the bind syntax in loops */}
+        {list.map(element => (
+          <button onClick={this.youClickAndNeedToBind.bind(this, element)}>
+            This is item {element}
+          </button>
+        ))
+        }
+        {this.renderAnythingElse()}
       </div>
     )
   }

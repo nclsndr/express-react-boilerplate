@@ -7,4 +7,4 @@ import './globals/_fonts.scss'
 import './app.scss'
 
 // Compile icon font
-import './icons.font'
+import './icons-font/icons.font'

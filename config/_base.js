@@ -10,6 +10,7 @@ const debug = _debug('app:config:_base')
 
 const config = {
   env: process.env.NODE_ENV || 'development',
+  babelEnv: process.env.BABEL_ENV || 'development',
 
   // ----------------------------------
   // Project Structure
@@ -32,6 +33,9 @@ const config = {
   // Global Compiler Configuration
   // ----------------------------------
   compiler_fail_on_warning: false,
+  compiler_compiled_image_name: '[path][name].[hash].[ext]',
+  compiler_compiled_font_name: '[path][name].[hash].[ext]',
+  compiler_file_in_memory_limit: 1000000000,
   // ----------------------------------
   // Client Compiler Configuration
   // ----------------------------------
@@ -51,16 +55,20 @@ const config = {
   client_compiler_vendor: [
     'axios',
     'classnames',
+    'debug',
     'history',
+    'immutable',
     'lodash',
     'react',
     'react-dom',
+    'react-helmet',
     'react-redux',
     'react-router',
     'react-router-redux',
-    'react-helmet',
     'redux',
-    'redux-thunk'
+    'redux-immutable',
+    'redux-thunk',
+    'window-or-global'
   ],
 
   // ----------------------------------
@@ -72,6 +80,7 @@ const config = {
   server_compiler_hash_type: 'hash',
   server_compiler_quiet: false,
   server_compiler_public_path: '/',
+  server_compiler_static_path: '/',
   server_compiler_wait_before_reload: 500,
   server_compiler_stats: {
     chunks : true,
@@ -97,6 +106,7 @@ config.globals = {
     'NODE_ENV': JSON.stringify(config.env)
   },
   'NODE_ENV': config.env,
+  'BABEL_ENV': config.babelEnv,
   '__DEV__': config.env === 'development',
   '__PROD__': config.env === 'production',
   '__TEST__': config.env === 'test',

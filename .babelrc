@@ -1,8 +1,8 @@
 // ---------------------------
 //  Babel config
+//  Note this config is only used to setup your IDE
+//  Compilation settings are located in ./build/[server|client].config.js
 // ---------------------------
-
 {
-  "presets": ["es2015", "react", "stage-0"],
-  "plugins": ["syntax-flow", "transform-runtime"]
+  "presets": ["es2015", "stage-0", "react", "flow"]
 }

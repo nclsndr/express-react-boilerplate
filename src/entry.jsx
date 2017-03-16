@@ -31,22 +31,12 @@ const initialState = root.__PRELOADED_STATE__ ? root.__PRELOADED_STATE__ : {}
 // Build the initial store
 const store = configureStore(browserHistory, fromJS(initialState))
 
-// Bind HMR on dev
-if (module.hot) {
-  module.hot.accept('./reducers', () =>
-    store.replaceReducer(require('./reducers').default)
-  )
-}
-
 // Used to set the react-router-redux reducer key || Adapted to Immutable
 const reactRouterReduxOptions = {
   selectLocationState: state => state.get(ROUTER).toJS()
 }
 // Bind router on reducer
 const history = syncHistoryWithStore(browserHistory, store, reactRouterReduxOptions)
-history.listen(location => {
-  // Callback called when history change
-})
 
 // Global wrapper for React with RootReducer as store
 const createApplication = () => {
@@ -58,3 +48,10 @@ const createApplication = () => {
 }
 // React DOM render
 ReactDOM.render(createApplication(), document.getElementById('app_root'))
+
+// Bind HMR on dev
+if (module.hot) {
+  module.hot.accept('./reducers', () =>
+    store.replaceReducer(require('./reducers').default)
+  )
+}

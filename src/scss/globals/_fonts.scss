@@ -1,5 +1,13 @@
 /* ------------------------------------------
  * Define global font style here
  *------------------------------------------- */
+
+@font-face {
+  font-family: 'openSansExtra';
+  src: url('../fonts/opensansextra.ttf');
+}
+
 .h1 { // use .hx instead of hx to separate style from SEO concerns
+  font-family: 'openSansExtra', Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
 }

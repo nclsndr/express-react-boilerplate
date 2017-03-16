@@ -18,7 +18,11 @@ const webpackConfigServer = {
   target: 'node',
   externals: nodeExternals({
     importType: 'commonjs',
-    modulesDir: 'node_modules'
+    modulesDir: 'node_modules',
+    whitelist: [
+      // enable server to load other resource types
+      /\.(?!(?:jsx?|json)$).{1,5}$/i
+    ]
   }),
   devtool: config.server_compiler_devtool,
   resolve: {
@@ -89,54 +93,48 @@ webpackConfigServer.module.rules = [
   {
     test: /\.(js|jsx)$/,
     exclude: '/node_modules/',
-    loader: 'babel-loader',
-    query: {
-      presets: ['es2015', 'react', 'stage-0'],
-      env: {
-        production: {
-          plugins: [
-            'transform-react-remove-prop-types'
-          ]
+    use: [
+      {
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: true,
+          babelrc: false,
+          presets: ['es2015', 'react', 'stage-0', 'flow'],
+          env: {
+            development: {
+              plugins: [
+                'transform-runtime'
+              ]
+            },
+            production: {
+              plugins: [
+                'transform-runtime',
+                'transform-react-remove-prop-types'
+              ]
+            }
+          }
         }
       }
-    }
+    ]
   },
   {
-    test: /\.css$/,
-    use: ['null-loader'] // prevent styles to be loaded in server
+    test: /\.(png|jpg?g|gif|svg)$/,
+    use: [
+      {
+        loader: 'url-loader',
+        options: {
+          name: `${config.server_assets_path}/${config.compiler_asset_name}`,
+          publicPath: config.server_compiler_static_path,
+          limit: config.compiler_file_in_memory_limit
+        }
+      }
+    ]
   },
   {
-    test: /\.scss$/,
-    use: ['null-loader'] // prevent styles to be loaded in server
-  },
-  {
-    test: /\.woff(\?.*)?$/,
+    test: /\.(css|scss|woff|woff2|otf|ttf|eot)(\?.*)?$/,
     use: ['null-loader']
   },
-  {
-    test: /\.woff2(\?.*)?$/,
-    use: ['null-loader']
-  },
-  {
-    test: /\.otf(\?.*)?$/,
-    use: ['null-loader']
-  },
-  {
-    test: /\.ttf(\?.*)?$/,
-    use: ['null-loader']
-  },
-  {
-    test: /\.eot(\?.*)?$/,
-    use: ['null-loader']
-  },
-  {
-    test: /\.svg(\?.*)?$/,
-    use: ['null-loader']
-  },
-  {
-    test: /\.(png|jpg)$/,
-    use: ['null-loader']
-  }
 ]
 
 export default webpackConfigServer
+

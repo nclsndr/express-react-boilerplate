@@ -14,14 +14,18 @@ export default config => ({
   // Global Compiler Configuration
   // ----------------------------------
   compiler_fail_on_warning: false,
+  compiler_compiled_image_name: 'compiled/img/[name].[hash].[ext]',
+  compiler_compiled_font_name: 'compiled/fonts/[name].[hash].[ext]',
+  compiler_file_in_memory_limit: 4096,
   // ----------------------------------
   // Client Compiler Configuration
   // ----------------------------------
-  client_compiler_devtool         : false,
+  client_compiler_devtool         : 'source-map',
   client_compiler_public_path     : '/static/',
   // ----------------------------------
   // Server Compiler Configuration
   // ----------------------------------
-  server_compiler_devtool         : false,
+  server_compiler_devtool         : 'source-map',
   server_compiler_public_path     : '/',
+  server_compiler_static_path     : '/static/'
 })

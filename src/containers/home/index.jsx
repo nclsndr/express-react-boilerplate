@@ -12,6 +12,8 @@ import Helmet from 'react-helmet'
 import GridDemo from '../../components/gridDemo'
 // Import style
 import './style.scss'
+// Import assets
+import logoPicture from '../../../static/img/logo_inline.png'
 
 const propTypes = {
   any: PropTypes.string
@@ -38,7 +40,10 @@ class Home extends Component {
         <div className="grid grid--wrap">
           <div className="row">
             <div className="c-s-12">
-              <h1 className="h1">Welcome onboard</h1>
+              <img className="logo_picture" src={logoPicture} alt="" />
+              <h1 className="h1">
+                Welcome onboard
+              </h1>
             </div>
           </div>
           <div className="row">
@@ -112,6 +117,7 @@ class Home extends Component {
                   </pre>
                   <p>Execute <span className="code_inline">dist/server.js</span></p>
                   <p>DO NOT USE THIS COMMAND ON REAL PROD ENV</p>
+                  <p>Server listens </p>
                   <p>Prefer use : <span className="code_inline">NODE_ENV=production node dist/server.js</span> or <span className="code_inline">$ npm start</span></p>
                 </div>
                 <div className="synopsis">

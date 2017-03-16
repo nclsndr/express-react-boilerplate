@@ -36,7 +36,6 @@ const APP_ENTRY_PATH = `${paths.client()}/entry.jsx`
 webpackConfigClient.entry = {
   app: __DEV__
     ? [
-      'webpack/hot/dev-server',
       'webpack-hot-middleware/client',
       APP_ENTRY_PATH
     ]
@@ -114,12 +113,13 @@ if (__DEV__) {
   webpackConfigClient.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.NamedModulesPlugin(),
     new webpack.LoaderOptionsPlugin({
       debug: config.client_compiler_debug
     })
   )
 } else if (__PROD__) {
-  debug('Enable plugins for production (OccurenceOrder, Dedupe & UglifyJS).')
+  debug('Enable plugins for production (UglifyJs, Assets).')
   webpackConfigClient.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
       compress: {
@@ -167,40 +167,132 @@ webpackConfigClient.module.rules.push(
   {
     test: /\.(js|jsx)$/,
     exclude: /node_modules/,
-    loader: 'babel-loader',
-    query: {
-      cacheDirectory: true,
-      plugins: ['transform-runtime'],
-      presets: ['es2015', 'react', 'stage-0'],
-      env: {
-        development: {
-          plugins: [
-            ['react-transform', {
-              transforms: [{
-                transform: 'react-transform-hmr',
-                imports: ['react'],
-                locals: ['module']
-              }, {
-                transform: 'react-transform-catch-errors',
-                imports: ['react', 'redbox-react']
-              }]
-            }]
-          ]
-        },
-        production: {
-          plugins: [
-            'transform-react-remove-prop-types'
-          ]
+    use: [
+      {
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: true,
+          babelrc: false,
+          env: {
+            development: {
+              presets: [
+                [
+                  'es2015',
+                  { modules: false }
+                ],
+                'stage-0',
+                'react',
+                'flow'
+              ],
+              plugins: [
+                'transform-runtime',
+                ['react-transform', {
+                  transforms: [
+                    {
+                      transform: 'react-transform-hmr',
+                      imports: ['react'],
+                      locals: ['module']
+                    }, {
+                      transform: 'react-transform-catch-errors',
+                      imports: ['react', 'redbox-react']
+                    }
+                  ]
+                }],
+                'syntax-dynamic-import'
+              ]
+            },
+            production: {
+              presets: [
+                ['env', {
+                  debug: false,
+                  targets: {
+                    browsers: ['last 4 versions']
+                  }
+                }],
+                'es2015',
+                'stage-0',
+                'react',
+                'flow'
+              ],
+              plugins: [
+                'transform-react-remove-prop-types',
+                'syntax-dynamic-import',
+              ]
+            }
+          }
         }
       }
-    }
+    ],
   }
 )
+
 // ------------------------------------
 // Style Loaders
 // ------------------------------------
+const sharedStyleAssetsLoaders = [
+  {
+    loader: 'css-loader',
+    options: {
+      importLoaders: 1,
+      sourceMap: __DEV__,
+      minimize: __PROD__
+    }
+  },
+  {
+    loader: 'postcss-loader',
+    options: {
+      plugins: () => {
+        return [
+          cssnano({
+            autoprefixer: {
+              add: __PROD__,
+              remove: true,
+              browsers: ['last 3 versions']
+            },
+            discardComments: {
+              removeAll: true
+            },
+            discardUnused: false,
+            mergeIdents: false,
+            reduceIdents: false,
+            safe: true,
+            sourcemap: __DEV__
+          })
+        ]
+      }
+    }
+  }
+]
 webpackConfigClient.module.rules.push({
   test: /\.scss$/,
+  use: ExtractTextPlugin.extract({
+    fallback: 'style-loader',
+    use: [
+      ...sharedStyleAssetsLoaders,
+      {
+        loader: 'sass-loader',
+        options: {
+          sourceMap: true
+        }
+      }
+    ]
+  })
+})
+webpackConfigClient.module.rules.push({
+  test: /\.css$/,
+  use: ExtractTextPlugin.extract({
+    fallback: 'style-loader',
+    use: [
+      ...sharedStyleAssetsLoaders
+    ]
+  })
+})
+// ------------------------------------
+// Icons font Loaders
+// ------------------------------------
+webpackConfigClient.module.rules.push({
+  test: /\.font.(js|json)$/,
+  include: /src\/scss/,
   use: ExtractTextPlugin.extract({
     fallback: 'style-loader',
     use: [
@@ -213,73 +305,33 @@ webpackConfigClient.module.rules.push({
         }
       },
       {
-        loader: 'postcss-loader',
+        loader: 'webfonts-loader',
         options: {
-          plugins: () => {
-            return [
-              cssnano({
-                autoprefixer: {
-                  add: __PROD__,
-                  remove: true,
-                  browsers: ['last 3 versions']
-                },
-                discardComments: {
-                  removeAll: true
-                },
-                discardUnused: false,
-                mergeIdents: false,
-                reduceIdents: false,
-                safe: true,
-                sourcemap: __DEV__
-              })
-            ]
-          }
-        }
-      },
-      {
-        loader: 'sass-loader',
-        options: {
-          sourceMap: true
+          embed: true
+          // https://github.com/sunflowerdeath/webfonts-generator/issues/19
+          // fileName: '[fontname].[hash].[ext]'
         }
       }
     ]
   })
 })
-// ------------------------------------
-// Icons font Loaders
-// ------------------------------------
-webpackConfigClient.module.rules.push({
-  test: /\.font.(js|json)$/,
-  include: /src\/scss/,
-  use: [
-    {
-      loader: 'style-loader'
-    },
-    {
-      loader: 'css-loader'
-    },
-    {
-      loader: 'fontgen-loader',
-      options: {
-        embed: true
-      }
-    },
-  ]
-})
 
 // ------------------------------------
 // Files loaders
 // ------------------------------------
+const sharedFontLoaderOptions = {
+  name: config.compiler_compiled_font_name,
+  publicPath: config.client_compiler_public_path,
+  limit: config.compiler_file_in_memory_limit,
+}
 webpackConfigClient.module.rules.push(
   {
     test: /\.woff(\?.*)?$/,
     use: [
       {
-        loader: 'url',
+        loader: 'url-loader',
         options: {
-          prefix: 'fonts/',
-          name: '[path][name].[ext]',
-          limit: 10000,
+          ...sharedFontLoaderOptions,
           mimetype: 'application/font-woff'
         }
       }
@@ -289,11 +341,9 @@ webpackConfigClient.module.rules.push(
     test: /\.woff2(\?.*)?$/,
     use: [
       {
-        loader: 'url',
+        loader: 'url-loader',
         options: {
-          prefix: 'fonts/',
-          name: '[path][name].[ext]',
-          limit: 10000,
+          ...sharedFontLoaderOptions,
           mimetype: 'application/font-woff2'
         }
       }
@@ -303,11 +353,9 @@ webpackConfigClient.module.rules.push(
     test: /\.otf(\?.*)?$/,
     use: [
       {
-        loader: 'url',
+        loader: 'url-loader',
         options: {
-          prefix: 'fonts/',
-          name: '[path][name].[ext]',
-          limit: 10000,
+          ...sharedFontLoaderOptions,
           mimetype: 'font/opentype'
         }
       }
@@ -317,11 +365,9 @@ webpackConfigClient.module.rules.push(
     test: /\.ttf(\?.*)?$/,
     use: [
       {
-        loader: 'url',
+        loader: 'url-loader',
         options: {
-          prefix: 'fonts/',
-          name: '[path][name].[ext]',
-          limit: 10000,
+          ...sharedFontLoaderOptions,
           mimetype: 'application/octet-stream'
         }
       }
@@ -331,38 +377,20 @@ webpackConfigClient.module.rules.push(
     test: /\.eot(\?.*)?$/,
     use: [
       {
-        loader: 'url',
-        options: {
-          prefix: 'fonts/',
-          name: '[path][name].[ext]',
-          limit: 10000
-        }
+        loader: 'url-loader',
+        options: sharedFontLoaderOptions
       }
     ]
   },
   {
-    test: /\.svg(\?.*)?$/,
+    test: /\.(png|jpg?g|gif|svg)$/,
     use: [
       {
-        loader: 'url',
+        loader: 'url-loader',
         options: {
-          prefix: 'fonts/',
-          name: '[path][name].[ext]',
-          limit: 10000,
-          mimetype: 'image/svg+xml'
-        }
-      }
-    ]
-  },
-  {
-    test: /\.(png|jpg)$/,
-    use: [
-      {
-        loader: 'url',
-        options: {
-          prefix: 'fonts/',
-          name: '[path][name].[ext]',
-          limit: 8192,
+          name: config.compiler_compiled_image_name,
+          publicPath: config.client_compiler_public_path,
+          limit: config.compiler_file_in_memory_limit
         }
       }
     ]
