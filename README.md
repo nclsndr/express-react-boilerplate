@@ -12,9 +12,13 @@ $ npm run dev
 ```
 $ npm run dev:ssr-only
 ```
-### Act as prod
+### Build
 ```
-$ npm run start
+$ npm run build
+```
+### Launch
+```
+$ npm start
 ```
 
 ## Dependencies
