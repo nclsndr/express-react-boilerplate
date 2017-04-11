@@ -15,10 +15,13 @@ function actionNasaGetAPODRequest(): Object {
     error: false
   }
 }
-function actionNasaGetAPODSuccess(response: Object): Object {
+function actionNasaGetAPODSuccess(response: Object, isSSR: Boolean): Object {
   return {
     type: constants.NASA_GET_APOD_SUCCESS,
-    payload: response,
+    payload: {
+      response,
+      isSSR
+    },
     error: false
   }
 }
@@ -35,11 +38,11 @@ function actionNasaGetAPODFailure(error: Object): Object {
 /**
  * @returns {Function}
  */
-export function actionNasaGetAPOD(): Function { // eslint-disable-line
+export function actionNasaGetAPOD(isSSR: Boolean): Function { // eslint-disable-line
   return (dispatch: Function) => {
     dispatch(actionNasaGetAPODRequest())
     return getAPOD()
-      .then((res: Object) => dispatch(actionNasaGetAPODSuccess(res)))
+      .then((res: Object) => dispatch(actionNasaGetAPODSuccess(res, isSSR)))
       .catch((error: Object) => dispatch(actionNasaGetAPODFailure(error)))
   }
 }

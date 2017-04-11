@@ -4,7 +4,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
-import { bindActionCreators } from 'redux'
 
 // Import services
 // Import constants
@@ -26,9 +25,8 @@ const contextTypes = {
 }
 
 class Nasa extends Component {
-  static load(dispatch) {
-    const bounded = bindActionCreators(actionNasaGetAPOD, dispatch)
-    return Promise.resolve(dispatch(bounded))
+  static load(dispatch, ssr = false) {
+    return Promise.resolve(actionNasaGetAPOD(ssr)(dispatch))
   }
   constructor(props) {
     super(props)

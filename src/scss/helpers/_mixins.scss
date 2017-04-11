@@ -32,6 +32,34 @@
   }
 }
 
+// Input placeholder
+@mixin inputPlaceholder() {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+  
+  &::-moz-placeholder { /* Firefox 19+ */
+    @content;
+  }
+  
+  &:-ms-input-placeholder {
+    @content;
+  }
+}
+
+// Input auto fill
+@mixin inputAutoFill() {
+  &:-webkit-autofill {
+    @content
+  }
+  &:-moz-autofill {
+    @content
+  }
+  &:-ms-autofill {
+    @content
+  }
+}
+
 @mixin customMediaQuery($size) {
   @media screen and (max-width: #{$size}) {
     @content

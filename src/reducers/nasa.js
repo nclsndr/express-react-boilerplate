@@ -6,6 +6,7 @@ import * as constants from '../constants/nasa'
 
 const defaultState = Map({
   apod: {}, // https://apod.nasa.gov/apod/astropix.html
+  isSSRLoaded: false,
   isLoading: false,
   error: null
 })
@@ -19,7 +20,8 @@ export default function nasaReducer(state = defaultState, { type, payload, error
     }
     case constants.NASA_GET_APOD_SUCCESS: {
       return state
-        .update('apod', () => payload)
+        .update('apod', () => payload.response)
+        .update('isSSRLoaded', () => payload.isSSR)
         .update('isLoading', () => false)
         .update('error', () => null)
     }

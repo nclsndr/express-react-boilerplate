@@ -22,9 +22,8 @@ const childContextTypes = {
 }
 
 class AppLayer extends Component {
-  constructor(props, context) {
+  constructor(props) {
     super(props)
-    this.ctx = context
   }
   getChildContext() { // Broadcast static values into children
     return {
